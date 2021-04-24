@@ -1,0 +1,12 @@
+using System;
+
+namespace Crates.Api.Data
+{
+    public static class SeedData
+    {
+        public static void Seed(CratesDbContext context)
+        {
+
+        }
+    }
+}
