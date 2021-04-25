@@ -33,19 +33,24 @@ namespace Crates.Api.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICratesDbContext _context;
+            private readonly IClock _clock;
 
-            public Handler(ICratesDbContext context)
-                => _context = context;
+            public Handler(ICratesDbContext context, IClock clock)
+            {
+                _context = context;
+                _clock = clock;
+            }
+                
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var playlist = new Playlist();
+                var playlist = new Playlist(_clock);
 
                 _context.Playlists.Add(playlist);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     Playlist = playlist.ToDto()
                 };

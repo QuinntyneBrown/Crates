@@ -4,6 +4,6 @@ namespace Crates.Api.Features
 {
     public class ArtistDto
     {
-        public Guid ArtistId { get; set; }
+        public Guid? ArtistId { get; set; }
     }
 }

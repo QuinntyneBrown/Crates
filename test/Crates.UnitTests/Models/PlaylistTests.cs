@@ -1,4 +1,5 @@
-﻿using Crates.Api.Models;
+﻿using Crates.Api.Core;
+using Crates.Api.Models;
 using Xunit;
 
 namespace Crates.UnitTests.Models
@@ -13,7 +14,7 @@ namespace Crates.UnitTests.Models
 
         public Playlist CreatePlaylist()
         {
-            return new();
+            return new(new SystemClock());
         }
     }
 }
