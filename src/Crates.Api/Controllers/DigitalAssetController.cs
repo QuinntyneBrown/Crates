@@ -1,11 +1,13 @@
-using System.Net;
-using System.Threading.Tasks;
 using Crates.Api.Features;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Crates.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class DigitalAssetController
@@ -15,57 +17,58 @@ namespace Crates.Api.Controllers
         public DigitalAssetController(IMediator mediator)
             => _mediator = mediator;
 
-        [HttpGet("{digitalAssetId}", Name = "GetDigitalAssetByIdRoute")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetDigitalAssetById.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetDigitalAssetById.Response>> GetById([FromRoute]GetDigitalAssetById.Request request)
-        {
-            var response = await _mediator.Send(request);
-        
-            if (response.DigitalAsset == null)
-            {
-                return new NotFoundObjectResult(request.DigitalAssetId);
-            }
-        
-            return response;
-        }
-        
-        [HttpGet(Name = "GetDigitalAssetsRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetDigitalAssets.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetDigitalAssets.Response>> Get()
-            => await _mediator.Send(new GetDigitalAssets.Request());
-        
-        [HttpPost(Name = "CreateDigitalAssetRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateDigitalAsset.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateDigitalAsset.Response>> Create([FromBody]CreateDigitalAsset.Request request)
-            => await _mediator.Send(request);
-        
         [HttpGet("page/{pageSize}/{index}", Name = "GetDigitalAssetsPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetDigitalAssetsPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetDigitalAssetsPage.Response>> Page([FromRoute]GetDigitalAssetsPage.Request request)
+        public async Task<ActionResult<GetDigitalAssetsPage.Response>> Page([FromRoute] GetDigitalAssetsPage.Request request)
             => await _mediator.Send(request);
-        
-        [HttpPut(Name = "UpdateDigitalAssetRoute")]
+
+        [HttpGet("{digitalAssetId}", Name = "GetDigitalAssetByIdRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateDigitalAsset.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateDigitalAsset.Response>> Update([FromBody]UpdateDigitalAsset.Request request)
+        [ProducesResponseType(typeof(GetDigitalAssetById.Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        public async Task<ActionResult<GetDigitalAssetById.Response>> GetById([FromRoute] GetDigitalAssetById.Request request)
+        {
+            var response = await _mediator.Send(request);
+
+            if (response.DigitalAsset == null)
+            {
+                return new NotFoundObjectResult(request.DigitalAssetId);
+            }
+
+            return response;
+        }
+
+        [HttpGet("range")]
+        public async Task<ActionResult<GetDigitalAssetsByIds.Response>> GetByIds([FromQuery] GetDigitalAssetsByIds.Request request)
             => await _mediator.Send(request);
-        
+
+        [HttpPost("upload"), DisableRequestSizeLimit]
+        public async Task<ActionResult<UploadDigitalAsset.Response>> Save()
+            => await _mediator.Send(new UploadDigitalAsset.Request());
+
+        [AllowAnonymous]
+        [HttpGet("serve/{digitalAssetId}")]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(FileContentResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> Serve([FromRoute] GetDigitalAssetById.Request request)
+        {
+            var response = await _mediator.Send(request);
+
+            if (response.DigitalAsset == null)
+                return new NotFoundObjectResult(null);
+
+            return new FileContentResult(response.DigitalAsset.Bytes, response.DigitalAsset.ContentType);
+        }
+
         [HttpDelete("{digitalAssetId}", Name = "RemoveDigitalAssetRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveDigitalAsset.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveDigitalAsset.Response>> Remove([FromRoute]RemoveDigitalAsset.Request request)
+        public async Task<ActionResult<RemoveDigitalAsset.Response>> Remove([FromRoute] RemoveDigitalAsset.Request request)
             => await _mediator.Send(request);
-        
     }
 }

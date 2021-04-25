@@ -1,4 +1,3 @@
-using System;
 using Crates.Api.Models;
 
 namespace Crates.Api.Features
@@ -7,11 +6,14 @@ namespace Crates.Api.Features
     {
         public static DigitalAssetDto ToDto(this DigitalAsset digitalAsset)
         {
-            return new ()
+            return new()
             {
-                DigitalAssetId = digitalAsset.DigitalAssetId
+                DigitalAssetId = digitalAsset.DigitalAssetId,
+                Bytes = digitalAsset.Bytes,
+                ContentType = digitalAsset.ContentType,
+                Name = digitalAsset.Name
             };
         }
-        
+
     }
 }

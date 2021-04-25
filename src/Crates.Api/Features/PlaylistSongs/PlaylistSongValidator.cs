@@ -2,5 +2,5 @@ using FluentValidation;
 
 namespace Crates.Api.Features
 {
-    public class PlaylistSongValidator: AbstractValidator<PlaylistSongDto> { }
+    public class PlaylistSongValidator : AbstractValidator<PlaylistSongDto> { }
 }

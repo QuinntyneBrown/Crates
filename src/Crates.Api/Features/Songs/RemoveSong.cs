@@ -12,37 +12,37 @@ namespace Crates.Api.Features
 {
     public class RemoveSong
     {
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public Guid SongId { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public SongDto Song { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICratesDbContext _context;
-        
+
             public Handler(ICratesDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var song = await _context.Songs.SingleAsync(x => x.SongId == request.SongId);
-                
+
                 _context.Songs.Remove(song);
-                
+
                 await _context.SaveChangesAsync(cancellationToken);
-                
+
                 return new Response()
                 {
                     Song = song.ToDto()
                 };
             }
-            
+
         }
     }
 }

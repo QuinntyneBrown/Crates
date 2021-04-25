@@ -7,11 +7,11 @@ namespace Crates.Api.Features
     {
         public static PlaylistSongDto ToDto(this PlaylistSong playlistSong)
         {
-            return new ()
+            return new()
             {
                 PlaylistSongId = playlistSong.PlaylistSongId
             };
         }
-        
+
     }
 }

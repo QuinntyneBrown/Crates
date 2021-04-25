@@ -12,7 +12,8 @@ namespace Crates.Api.Interfaces
         DbSet<User> Users { get; }
         DbSet<Playlist> Playlists { get; }
         DbSet<PlaylistSong> PlaylistSongs { get; }
+        DbSet<Artist> Artists { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

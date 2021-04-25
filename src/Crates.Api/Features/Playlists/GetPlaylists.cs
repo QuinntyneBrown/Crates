@@ -12,27 +12,28 @@ namespace Crates.Api.Features
 {
     public class GetPlaylists
     {
-        public class Request: IRequest<Response> { }
+        public class Request : IRequest<Response> { }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public List<PlaylistDto> Playlists { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICratesDbContext _context;
-        
+
             public Handler(ICratesDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new () {
+                return new()
+                {
                     Playlists = await _context.Playlists.Select(x => x.ToDto()).ToListAsync()
                 };
             }
-            
+
         }
     }
 }
