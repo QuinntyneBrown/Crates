@@ -12,7 +12,7 @@ namespace Crates.Api.Features
     {
         public class Request : IRequest<Response>
         {
-            public Guid UserId { get; set; }
+            public System.Guid UserId { get; set; }
         }
 
         public class Response : ResponseBase
@@ -26,12 +26,11 @@ namespace Crates.Api.Features
 
             public Handler(ICratesDbContext context)
                 => _context = context;
-
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 return new()
                 {
-                    User = (await _context.Users.SingleOrDefaultAsync(x => x.UserId == request.UserId)).ToDto()
+                    User = (await _context.Users.SingleOrDefaultAsync()).ToDto()
                 };
             }
 

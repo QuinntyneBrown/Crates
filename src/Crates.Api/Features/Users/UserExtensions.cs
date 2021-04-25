@@ -1,5 +1,5 @@
-using System;
 using Crates.Api.Models;
+using System.Linq;
 
 namespace Crates.Api.Features
 {
@@ -9,9 +9,9 @@ namespace Crates.Api.Features
         {
             return new()
             {
-                UserId = user.UserId
+                UserId = user.UserId,
+                Username = user.Username,
             };
         }
-
     }
 }

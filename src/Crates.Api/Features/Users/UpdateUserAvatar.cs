@@ -8,23 +8,28 @@ using System.Threading.Tasks;
 
 namespace Crates.Api.Features
 {
-    public class RemoveUser
+    public class UpdateUserAvatar
     {
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.UserId).NotNull().NotEmpty();
+                RuleFor(request => request.AvatarDigitalAssetId).NotNull();
             }
         }
 
-        public class Request : IRequest<ResponseBase>
+        public class Request : IRequest<Response>
         {
-            public System.Guid UserId { get; set; }
+            public Guid UserId { get; set; }
+            public Guid AvatarDigitalAssetId { get; set; }
         }
 
+        public class Response : ResponseBase
+        {
+            public UserDto User { get; set; }
+        }
 
-        public class Handler : IRequestHandler<Request, ResponseBase>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ICratesDbContext _context;
 
@@ -33,18 +38,18 @@ namespace Crates.Api.Features
                 _context = context;
             }
 
-            public async Task<ResponseBase> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
 
                 var user = await _context.Users.FindAsync(request.UserId);
 
-                _context.Users.Remove(user);
+                user.UpdateAvatar(request.AvatarDigitalAssetId);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new()
                 {
-
+                    User = user.ToDto()
                 };
             }
         }

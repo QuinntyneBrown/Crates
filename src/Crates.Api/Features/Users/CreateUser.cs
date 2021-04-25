@@ -1,10 +1,10 @@
+using Crates.Api.Core;
+using Crates.Api.Interfaces;
+using Crates.Api.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Crates.Api.Models;
-using Crates.Api.Core;
-using Crates.Api.Interfaces;
 
 namespace Crates.Api.Features
 {
@@ -15,9 +15,8 @@ namespace Crates.Api.Features
             public Validator()
             {
                 RuleFor(request => request.User).NotNull();
-                RuleFor(request => request.User).SetValidator(new UserValidator());
+                RuleFor(request => request.User).SetValidator(new UserDtoValidator());
             }
-
         }
 
         public class Request : IRequest<Response>
@@ -36,7 +35,6 @@ namespace Crates.Api.Features
 
             public Handler(ICratesDbContext context)
                 => _context = context;
-
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var user = new User();
@@ -45,7 +43,7 @@ namespace Crates.Api.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new()
                 {
                     User = user.ToDto()
                 };

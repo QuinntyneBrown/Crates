@@ -1,11 +1,14 @@
 using System.Net;
 using System.Threading.Tasks;
+using Crates.Api.Core;
 using Crates.Api.Features;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crates.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController
@@ -39,6 +42,14 @@ namespace Crates.Api.Controllers
         public async Task<ActionResult<GetUsers.Response>> Get()
             => await _mediator.Send(new GetUsers.Request());
 
+        [AllowAnonymous]
+        [HttpGet("current", Name = "GetCurrentUserRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetCurrentUser.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetCurrentUser.Response>> GetCurrent()
+            => await _mediator.Send(new GetCurrentUser.Request());
+
         [HttpPost(Name = "CreateUserRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -63,9 +74,17 @@ namespace Crates.Api.Controllers
         [HttpDelete("{userId}", Name = "RemoveUserRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(RemoveUser.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveUser.Response>> Remove([FromRoute] RemoveUser.Request request)
+        [ProducesResponseType(typeof(ResponseBase), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ResponseBase>> Remove([FromRoute] RemoveUser.Request request)
             => await _mediator.Send(request);
 
+        [AllowAnonymous]
+        [HttpPost("token", Name = "AuthenticateRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(Authenticate.Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        public async Task<ActionResult<Authenticate.Response>> Authenticate([FromBody] Authenticate.Request request)
+            => await _mediator.Send(request);
     }
 }

@@ -25,7 +25,6 @@ namespace Crates.Api.Features
 
             public Handler(ICratesDbContext context)
                 => _context = context;
-
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 return new()
