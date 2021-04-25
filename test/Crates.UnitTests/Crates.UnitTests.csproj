@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Crates.Api\Crates.Api.csproj" />
+    <ProjectReference Include="..\Crates.Testing\Crates.Testing.csproj" />
+  </ItemGroup>
+
 </Project>
