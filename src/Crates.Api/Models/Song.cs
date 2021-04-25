@@ -6,7 +6,8 @@ namespace Crates.Api.Models
     public class Song
     {
         public Guid SongId { get; private set; }
-        public Guid ArtistId { get; private set; }
-        public List<Song> Songs { get; private set; } = new();
+        public List<Artist> Artists { get; private set; } = new();
+        public List<Playlist> Playlists { get; private set; } = new();
+
     }
 }
