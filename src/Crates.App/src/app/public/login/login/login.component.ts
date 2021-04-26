@@ -1,13 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AuthService } from '@core/auth.service';
 import { RedirectService } from '@core/redirect.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: [
+    '/node_modules/@angular/material/prebuilt-themes/indigo-pink.css',
+    './login.component.scss'
+  ]
 })
 export class LoginComponent implements OnDestroy, OnInit {
 

@@ -7,7 +7,10 @@ import { PlaylistService } from 'src/app/workspace/playlists/playlist.service';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  styleUrls: ['./landing.component.scss'],
+  host: {
+    'class':'g-typography'
+  }
 })
 export class LandingComponent {
 

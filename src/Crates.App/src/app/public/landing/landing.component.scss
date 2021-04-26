@@ -5,13 +5,15 @@
     width: 100%;
     text-align: center;
 
-    svg {
+    .logo {
         margin:40px auto 20px auto;
         box-sizing: border-box;
     }
 
     main {
         display: grid;
+        min-height: 1px;
+        margin: 70px 0 0 0;
     }
 }
 

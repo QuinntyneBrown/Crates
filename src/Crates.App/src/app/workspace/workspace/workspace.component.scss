@@ -1,0 +1,29 @@
+:host {
+    section {
+        display: grid; 
+        grid-template-columns: 300px 1fr;
+        box-sizing: border-box;
+        height: calc(100% - 64px);
+    }
+
+    ul, li {
+        background-color: #ccc;
+        margin: 0;
+        padding:0;
+        list-style: none;        
+    }
+
+    li {
+        padding: 20px;
+    }
+    li:hover {
+        background-color: white;
+        cursor: pointer;
+    }
+    main {
+
+        padding:0;
+        margin:30px;
+        grid-column: 2;        
+    }
+}

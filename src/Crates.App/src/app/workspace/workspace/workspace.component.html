@@ -1,1 +1,20 @@
-<p>workspace works!</p>
+<ng-container>
+    
+    <app-workspace-header></app-workspace-header>
+
+    <section>
+        <ul>
+            <li>Playlists</li>
+            <li>Songs</li>
+            <li>Artists</li>
+            <li>Digital Assets</li>
+            <li [routerLink]="['']">Logout</li>
+        </ul>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+
+    </section>
+
+    
+</ng-container>
