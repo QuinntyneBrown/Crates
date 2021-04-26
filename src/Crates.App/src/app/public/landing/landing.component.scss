@@ -1,0 +1,17 @@
+:host {
+    display: block;
+    background-color: #F5F3EF;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+
+    svg {
+        margin:40px auto 20px auto;
+        box-sizing: border-box;
+    }
+
+    main {
+        display: grid;
+    }
+}
+

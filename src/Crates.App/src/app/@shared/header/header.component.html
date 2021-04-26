@@ -1,0 +1,24 @@
+<div class=header-layout>
+    <div>
+        <mat-icon (click)="menuClick.emit()">
+            menu
+        </mat-icon>    
+    </div>
+    
+    <div class="logo-container">
+        <img (click)="logoClick.emit()" src="../../../assets/logo.svg">
+    </div>
+    
+    <div class="actions">
+        <mat-icon class="profile" (click)="profileClick.emit()">
+            person
+        </mat-icon> 
+        <mat-icon class="search" (click)="searchClick.emit()">
+            search
+        </mat-icon>
+        <mat-icon class="shoppingCart" (click)="shoppingCartClick.emit()">
+            shopping_cart
+        </mat-icon>   
+    </div> 
+    
+</div>
