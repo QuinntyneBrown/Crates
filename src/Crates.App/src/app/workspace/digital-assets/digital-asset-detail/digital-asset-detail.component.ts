@@ -26,10 +26,23 @@ export class DigitalAssetDetailComponent implements OnDestroy {
     this.digitalAsset$
   ]).pipe(
     map(([digitalAsset]) => {
+      const form = new FormGroup({
+        digitalAsset: new FormControl(digitalAsset, [])
+      });
+
+      if(!this.digitalAsset$?.value?.digitalAssetId) {
+        form.valueChanges
+        .pipe(
+          tap(x => {
+            this.saved.next(x.digitalAsset);
+            this._overlayRef.dispose();
+          }),
+          takeUntil(this._destroyed)
+        )
+        .subscribe();
+      }
       return {
-        form: new FormGroup({
-          digitalAsset: new FormControl(digitalAsset, [])
-        })
+        form
       }
     })
   )

@@ -27,8 +27,30 @@ namespace Crates.Api
             using (var scope = services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<CratesDbContext>();
+                var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
-                SeedData.Seed(context);
+                if (args.Contains("ci"))
+                    args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
+
+                if (args.Contains("dropdb"))
+                {
+                    context.Database.EnsureDeleted();
+                }
+
+                if (args.Contains("migratedb"))
+                {
+                    context.Database.Migrate();
+                }
+
+                if (args.Contains("seeddb"))
+                {
+                    context.Database.EnsureCreated();
+                    SeedData.Seed(context);
+                }
+
+
+                if (args.Contains("stop"))
+                    Environment.Exit(0);
             }
         }
 

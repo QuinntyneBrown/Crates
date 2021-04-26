@@ -1,7 +1,7 @@
 import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { fromEvent, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';;
+import { takeUntil, tap } from 'rxjs/operators';
 import { DigitalAsset } from '../digital-asset';
 
 @Component({
@@ -33,23 +33,8 @@ export class DigitalAssetEditorComponent implements ControlValueAccessor,  Valid
     private readonly _elementRef: ElementRef
   ) { }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return this.form.valid
-      ? null
-      : Object.keys(this.form.controls).reduce(
-          (accumulatedErrors, formControlName) => {
-            const errors = { ...accumulatedErrors };
+  validate(control: AbstractControl): ValidationErrors | any {
 
-            const controlErrors = this.form.controls[formControlName].errors;
-
-            if (controlErrors) {
-              errors[formControlName] = controlErrors;
-            }
-
-            return errors;
-          },
-          {}
-        );
   }
   
   writeValue(digitalAsset: DigitalAsset): void {   

@@ -7,15 +7,19 @@ namespace Crates.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            WebHostEnvironment = webHostEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            Dependencies.ConfigureAuth(services, Configuration, WebHostEnvironment);
+
             Dependencies.Configure(services, Configuration);
         }
 

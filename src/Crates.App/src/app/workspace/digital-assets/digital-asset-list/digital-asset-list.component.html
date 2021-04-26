@@ -1,8 +1,8 @@
 <div *ngIf="vm$ | async as vm">
 
-  <h1 class="mat-headline">DigitalAsset List</h1>
+  <h1 class="mat-headline">Digital Asset List</h1>
 
-  <button mat-raised-button (click)='create()'>Create</button>
+  <button mat-raised-button (click)='create()'>Upload</button>
   
   <table mat-table [dataSource]="vm.dataSource" class="mat-elevation-z8">
         
@@ -16,6 +16,10 @@
           <td style="width:100px" mat-cell *matCellDef="let digitalAsset">
             <button mat-icon-button (click)="edit(digitalAsset)">
               <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="delete(digitalAsset)">
+              <mat-icon>delete</mat-icon>
             </button>
           </td>
       </ng-container>
