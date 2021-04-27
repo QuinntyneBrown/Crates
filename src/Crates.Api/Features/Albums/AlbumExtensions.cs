@@ -1,4 +1,3 @@
-using System;
 using Crates.Api.Models;
 
 namespace Crates.Api.Features
@@ -9,7 +8,9 @@ namespace Crates.Api.Features
         {
             return new ()
             {
-                AlbumId = album.AlbumId
+                AlbumId = album.AlbumId,
+                Name = album.Name,
+                Type = album.Type
             };
         }
         

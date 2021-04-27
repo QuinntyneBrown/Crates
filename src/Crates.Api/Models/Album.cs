@@ -10,5 +10,14 @@ namespace Crates.Api.Models
         public AlbumType Type { get; private set; } = AlbumType.Album;
         public Guid GenreId { get; set; }
         public List<Track> Tracks { get; private set; } = new();
+
+        public Album(string name)
+        {
+            Name = name;
+        }
+        private Album()
+        {
+
+        }
     }
 }

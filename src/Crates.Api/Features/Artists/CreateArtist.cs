@@ -41,6 +41,8 @@ namespace Crates.Api.Features
             {
                 var artist = new Artist();
 
+                artist.Name = request.Artist.Name;
+
                 _context.Artists.Add(artist);
 
                 await _context.SaveChangesAsync(cancellationToken);

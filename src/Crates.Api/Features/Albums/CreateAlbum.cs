@@ -39,8 +39,8 @@ namespace Crates.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var album = new Album();
-                
+                var album = new Album(request.Album.Name);
+
                 _context.Albums.Add(album);
                 
                 await _context.SaveChangesAsync(cancellationToken);
