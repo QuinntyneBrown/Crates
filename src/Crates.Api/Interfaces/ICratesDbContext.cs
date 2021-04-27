@@ -7,13 +7,14 @@ namespace Crates.Api.Interfaces
 {
     public interface ICratesDbContext
     {
-        DbSet<Song> Songs { get; }
         DbSet<DigitalAsset> DigitalAssets { get; }
         DbSet<User> Users { get; }
         DbSet<Playlist> Playlists { get; }
-        DbSet<PlaylistSong> PlaylistSongs { get; }
+        DbSet<PlaylistTrack> PlaylistTracks { get; }
         DbSet<Artist> Artists { get; }
+        DbSet<Genre> Genres { get; }
+        DbSet<Track> Tracks { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
+        
     }
 }

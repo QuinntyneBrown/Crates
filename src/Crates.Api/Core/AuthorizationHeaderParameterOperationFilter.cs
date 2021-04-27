@@ -15,8 +15,7 @@ namespace Crates.Api.Core
 
             if (hasAuthorize)
             {
-                if (operation.Parameters == null)
-                    operation.Parameters = new List<OpenApiParameter>();
+                operation.Parameters ??= new List<OpenApiParameter>();
 
                 var oauthParameter = new OpenApiParameter
                 {
@@ -24,7 +23,7 @@ namespace Crates.Api.Core
                     In = ParameterLocation.Header,
                     Description = "Access Token",
                     Required = true,
-                    Schema = new OpenApiSchema { Type = "string" }
+                    Schema = new () { Type = "string" }
                 };
 
                 operation.Parameters.Add(oauthParameter);

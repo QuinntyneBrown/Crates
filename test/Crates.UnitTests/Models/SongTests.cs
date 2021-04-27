@@ -11,7 +11,7 @@ namespace Crates.UnitTests
             var actual = CreateSong();
         }
         
-        public Song CreateSong()
+        public Track CreateSong()
         {
             return new();
         }

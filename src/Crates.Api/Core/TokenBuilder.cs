@@ -35,7 +35,6 @@ namespace Crates.Api.Core
             if (string.IsNullOrEmpty(_username))
             {
                 _username = claimsPrincipal.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
-
             }
 
             _claims = claimsPrincipal.Claims.ToList();

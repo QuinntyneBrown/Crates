@@ -1,10 +1,10 @@
+using Crates.Api.Core;
+using Crates.Api.Interfaces;
+using Crates.Api.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Crates.Api.Models;
-using Crates.Api.Core;
-using Crates.Api.Interfaces;
 
 namespace Crates.Api.Features
 {
@@ -41,10 +41,9 @@ namespace Crates.Api.Features
                 _clock = clock;
             }
                 
-
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var playlist = new Playlist(_clock);
+                var playlist = new Playlist(_clock.UtcNow, request.Playlist.CoverArtDigitalAssetId);
 
                 _context.Playlists.Add(playlist);
 

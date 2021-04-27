@@ -1,8 +1,9 @@
-using System.Net;
-using System.Threading.Tasks;
 using Crates.Api.Features;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Crates.Api.Controllers
 {
@@ -37,7 +38,16 @@ namespace Crates.Api.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetPlaylists.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetPlaylists.Response>> Get()
-            => await _mediator.Send(new GetPlaylists.Request());
+        {
+            try
+            {
+                return await _mediator.Send(new GetPlaylists.Request());
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
 
         [HttpPost(Name = "CreatePlaylistRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

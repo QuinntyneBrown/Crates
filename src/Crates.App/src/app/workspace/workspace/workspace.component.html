@@ -4,10 +4,10 @@
 
     <section>
         <ul>
-            <li>Playlists</li>
-            <li>Songs</li>
-            <li>Artists</li>
-            <li>Digital Assets</li>
+            <li [routerLink]="['/workspace']">Playlists</li>
+            <li [routerLink]="['/workspace','tracks']">Tracks</li>
+            <li [routerLink]="['/workspace','artists']">Artists</li>
+            <li [routerLink]="['/workspace', 'digital-assets']">Digital Assets</li>
             <li [routerLink]="['']">Logout</li>
         </ul>
         <main>

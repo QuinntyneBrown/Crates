@@ -1,5 +1,5 @@
-using System;
 using Crates.Api.Models;
+using System.Linq;
 
 namespace Crates.Api.Features
 {
@@ -9,9 +9,13 @@ namespace Crates.Api.Features
         {
             return new()
             {
-                PlaylistId = playlist.PlaylistId
+                PlaylistId = playlist.PlaylistId,
+                Created = playlist.Created,
+                Released = playlist.Released,
+                Tracks = playlist.Tracks.Select(x => x.ToDto()).ToList(),
+                Spotify = playlist.Spotify,
+                CoverArtDigitalAssetId = playlist.CoverArtDigitalAssetId
             };
         }
-
     }
 }

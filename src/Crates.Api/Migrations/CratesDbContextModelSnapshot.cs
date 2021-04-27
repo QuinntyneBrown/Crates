@@ -25,24 +25,27 @@ namespace Crates.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ArtistId");
 
                     b.ToTable("Artists");
                 });
 
-            modelBuilder.Entity("Crates.Api.Models.ArtistSong", b =>
+            modelBuilder.Entity("Crates.Api.Models.ArtistTrack", b =>
                 {
                     b.Property<Guid>("ArtistId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SongId")
+                    b.Property<Guid>("TrackId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ArtistId", "SongId");
+                    b.HasKey("ArtistId", "TrackId");
 
-                    b.HasIndex("SongId");
+                    b.HasIndex("TrackId");
 
-                    b.ToTable("ArtistSong");
+                    b.ToTable("ArtistTrack");
                 });
 
             modelBuilder.Entity("Crates.Api.Models.DigitalAsset", b =>
@@ -65,13 +68,27 @@ namespace Crates.Api.Migrations
                     b.ToTable("DigitalAssets");
                 });
 
+            modelBuilder.Entity("Crates.Api.Models.Genre", b =>
+                {
+                    b.Property<Guid>("GenreId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GenreId");
+
+                    b.ToTable("Genres");
+                });
+
             modelBuilder.Entity("Crates.Api.Models.Playlist", b =>
                 {
                     b.Property<Guid>("PlaylistId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("BoxArtDigitalAssetId")
+                    b.Property<Guid>("CoverArtDigitalAssetId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
@@ -88,39 +105,50 @@ namespace Crates.Api.Migrations
                     b.ToTable("Playlists");
                 });
 
-            modelBuilder.Entity("Crates.Api.Models.PlaylistSong", b =>
+            modelBuilder.Entity("Crates.Api.Models.PlaylistTrack", b =>
                 {
                     b.Property<Guid>("PlaylistId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SongId")
+                    b.Property<Guid>("TrackId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("PlaylistId", "SongId");
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
-                    b.HasIndex("SongId");
+                    b.Property<Guid?>("PlaylistId1")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("PlaylistSongs");
+                    b.HasKey("PlaylistId", "TrackId");
+
+                    b.HasIndex("PlaylistId1");
+
+                    b.HasIndex("TrackId");
+
+                    b.ToTable("PlaylistTracks");
                 });
 
-            modelBuilder.Entity("Crates.Api.Models.Song", b =>
+            modelBuilder.Entity("Crates.Api.Models.Track", b =>
                 {
-                    b.Property<Guid>("SongId")
+                    b.Property<Guid>("TrackId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AppleMusic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("BoxArtDigitalAssetId")
+                    b.Property<Guid>("CoverArtDigitalAssetId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Spotify")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SongId");
+                    b.HasKey("TrackId");
 
-                    b.ToTable("Songs");
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("Crates.Api.Models.User", b =>
@@ -149,7 +177,7 @@ namespace Crates.Api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Crates.Api.Models.ArtistSong", b =>
+            modelBuilder.Entity("Crates.Api.Models.ArtistTrack", b =>
                 {
                     b.HasOne("Crates.Api.Models.Artist", "Artist")
                         .WithMany()
@@ -157,18 +185,18 @@ namespace Crates.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Crates.Api.Models.Song", "Song")
+                    b.HasOne("Crates.Api.Models.Track", "Track")
                         .WithMany()
-                        .HasForeignKey("SongId")
+                        .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Artist");
 
-                    b.Navigation("Song");
+                    b.Navigation("Track");
                 });
 
-            modelBuilder.Entity("Crates.Api.Models.PlaylistSong", b =>
+            modelBuilder.Entity("Crates.Api.Models.PlaylistTrack", b =>
                 {
                     b.HasOne("Crates.Api.Models.Playlist", "Playlist")
                         .WithMany()
@@ -176,15 +204,24 @@ namespace Crates.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Crates.Api.Models.Song", "Song")
+                    b.HasOne("Crates.Api.Models.Playlist", null)
+                        .WithMany("PlaylistTracks")
+                        .HasForeignKey("PlaylistId1");
+
+                    b.HasOne("Crates.Api.Models.Track", "Track")
                         .WithMany()
-                        .HasForeignKey("SongId")
+                        .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Playlist");
 
-                    b.Navigation("Song");
+                    b.Navigation("Track");
+                });
+
+            modelBuilder.Entity("Crates.Api.Models.Playlist", b =>
+                {
+                    b.Navigation("PlaylistTracks");
                 });
 #pragma warning restore 612, 618
         }

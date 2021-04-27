@@ -1,5 +1,11 @@
 <mat-card *ngIf="vm$ | async as vm">
 
+    <button mat-icon-button class="close-button" (click)="cancel()">
+        <mat-icon>
+            close
+        </mat-icon>
+    </button>
+
     <h1 *ngIf="(digitalAsset$ | async)">Edit Digital Asset</h1>
     <h1 *ngIf="!(digitalAsset$ | async)">Upload Digital Asset</h1>
     <form [formGroup]="vm.form">
@@ -12,8 +18,8 @@
         </app-digital-asset-editor>
     </form>
 
-    <div class="actions" >
-        <button *ngIf="(digitalAsset$ | async)" mat-raised-button (click)="save(vm)" color="primary" [disabled]="!vm.form.dirty && vm.form.valid">Save</button>
+    <div class="actions" *ngIf="(digitalAsset$ | async)">
+        <button mat-raised-button (click)="save(vm)" color="primary" [disabled]="!vm.form.dirty && vm.form.valid">Save</button>
 
         <button mat-raised-button (click)="cancel()">Cancel</button>
     </div>

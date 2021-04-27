@@ -1,10 +1,20 @@
 :host {
+    
+    .close-button {
+        position: absolute;
+        right: 0px;
+        top:0px;
+    }
+
     form {
         text-align: center;
+    }
 
-        app-digital-asset-upload {
-            padding: 100px 0 0 0;
-            display: block;
-        }
+    h1 {
+        padding: 30px 0 30px 0;
+    }
+
+    mat-card {
+        padding:30px;
     }
 }

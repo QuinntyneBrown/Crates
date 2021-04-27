@@ -11,3 +11,13 @@
     border:none;
     cursor: pointer;
 }
+
+button.mat-button-base {
+    margin:0 0 20px 0;
+}
+
+button[mat-fab].upload-button {
+    background-color: rgba(0,0,0,0.12);
+    color: rgba(0,0,0,0.42);
+    box-shadow: none;
+}

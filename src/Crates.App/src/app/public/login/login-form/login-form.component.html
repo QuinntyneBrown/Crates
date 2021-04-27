@@ -1,20 +1,18 @@
   
 <mat-card>
     <mat-card-title>
-      Sign in to eShop Workspace
+      Sign in to Crates Workspace
     </mat-card-title>
     
     <form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
         <mat-form-field>
-          <input  matInput placeholder='Username'
-                 class='username'
+          <input  matInput placeholder='Username'                 
                  formControlName='username' required>
         </mat-form-field>
     
         <mat-form-field>
-          <input cdkFocusInitial matInput
+          <input matInput
                  placeholder='Password'
-                 id='password'
                  formControlName='password'
                  type='password'
                  required>

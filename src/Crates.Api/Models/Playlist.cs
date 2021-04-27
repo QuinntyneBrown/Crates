@@ -1,4 +1,3 @@
-using Crates.Api.Core;
 using System;
 using System.Collections.Generic;
 
@@ -6,28 +5,42 @@ namespace Crates.Api.Models
 {
     public class Playlist
     {
-        private readonly IClock _clock;
         public Guid PlaylistId { get; private set; }
-        public DateTime Created { get; private set; }
+        public DateTime Created { get; private set; } = DateTime.UtcNow;
         public DateTime Released { get; private set; }
-        public List<Song> Songs { get; private set; } = new();
+        public List<PlaylistTrack> PlaylistTracks { get; private set; } = new();
+        public List<Track> Tracks { get; private set; } = new();
         public string Spotify { get; private set; }
-        public Guid BoxArtDigitalAssetId { get; private set; }
-        public void Release(IClock clock)
+        public Guid CoverArtDigitalAssetId { get; private set; }
+        public void Release(DateTime released)
         {
-            Released = clock.UtcNow;
+            Released = released;
         }
 
-        public Playlist(IClock clock)
-            :base()
+        public Playlist(DateTime created)
         {
-            _clock = clock;
+            Created = created;
+        }
+
+        public Playlist(DateTime created, Guid coverArtDigitalAssetId)
+        {
+            Created = created;
+            CoverArtDigitalAssetId = coverArtDigitalAssetId;
         }
 
         private Playlist()
         {
-            _clock ??= new SystemClock();
-            Created = _clock.UtcNow;   
+   
+        }
+
+        public void AddTrack(Track track)
+        {
+            Tracks.Add(track);
+        }
+
+        public void RemoveTrack(Track track)
+        {
+            Tracks.Remove(track);
         }
     }
 }

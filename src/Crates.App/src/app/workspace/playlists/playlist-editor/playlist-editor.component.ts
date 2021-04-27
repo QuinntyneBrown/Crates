@@ -27,6 +27,7 @@ export class PlaylistEditorComponent implements ControlValueAccessor,  Validator
   public form = new FormGroup({
     playlistId: new FormControl(),
     name: new FormControl(null, [Validators.required]),
+    coverArtDigitalAssetId: new FormControl(null, [Validators.required])
   });
 
   constructor(

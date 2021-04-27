@@ -1,14 +1,12 @@
+using Crates.Api.Core;
+using Crates.Api.Extensions;
+using Crates.Api.Interfaces;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using Crates.Api.Extensions;
-using Crates.Api.Core;
-using Crates.Api.Interfaces;
-using Crates.Api.Extensions;
-using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Crates.Api.Features
 {
@@ -23,7 +21,7 @@ namespace Crates.Api.Features
         public class Response : ResponseBase
         {
             public int Length { get; set; }
-            public List<DigitalAssetDto> Entities { get; set; }
+            public List<SimplifiedDigitalAssetDto> Entities { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -41,7 +39,7 @@ namespace Crates.Api.Features
                 var length = await _context.DigitalAssets.CountAsync();
 
                 var digitalAssets = await query.Page(request.Index, request.PageSize)
-                    .Select(x => x.ToDto()).ToListAsync();
+                    .Select(x => x.ToSimplifiedDto()).ToListAsync();
 
                 return new()
                 {

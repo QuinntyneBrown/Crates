@@ -64,7 +64,7 @@ export class ArtistEditorComponent implements ControlValueAccessor,  Validator  
     this._elementRef.nativeElement
       .querySelectorAll("*")
       .forEach((element: HTMLElement) => {
-        fromEvent(element, "blur")
+        fromEvent(element, "focus")
           .pipe(
             takeUntil(this._destroyed$),
             tap(x => fn())

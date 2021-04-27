@@ -8,11 +8,11 @@ namespace Crates.Api.Data
     {
         public void Configure(EntityTypeBuilder<Artist> builder)
         {
-            builder.HasMany(x => x.Songs)
+            builder.HasMany(x => x.Tracks)
                             .WithMany(x => x.Artists)
-                            .UsingEntity<ArtistSong>(
-                                x => x.HasOne(x => x.Song)
-                                .WithMany().HasForeignKey(x => x.SongId),
+                            .UsingEntity<ArtistTrack>(
+                                x => x.HasOne(x => x.Track)
+                                .WithMany().HasForeignKey(x => x.TrackId),
                                 x => x.HasOne(x => x.Artist)
                                .WithMany().HasForeignKey(x => x.ArtistId));
         }

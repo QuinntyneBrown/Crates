@@ -15,8 +15,8 @@
     <main>
         <img 
         *ngFor="let playlist of vm.playlists" class="g-box-art" 
-        [src]="playlist.boxArtUrl"
-        [routerLink]='[playlist, playlist.id]'/>
+        src="{{ baseUrl }}api/digitalAsset/serve/{{ playlist.coverArtDigitalAssetId }}"
+        [routerLink]='["playlist", playlist.playlistId]'/>
     </main>
 </ng-container>
 

@@ -14,7 +14,7 @@ namespace Crates.UnitTests.Models
 
         public Playlist CreatePlaylist()
         {
-            return new(new SystemClock());
+            return new(new SystemClock().UtcNow);
         }
     }
 }

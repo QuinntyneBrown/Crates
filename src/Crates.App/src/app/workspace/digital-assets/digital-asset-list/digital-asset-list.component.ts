@@ -44,6 +44,7 @@ export class DigitalAssetListComponent implements OnDestroy {
     ])
     .pipe(
       map(([columnsToDisplay, pageNumber, pageSize]) => { 
+        
         this._dataSource.getPage({ index, pageSize });
         return {
           dataSource: this._dataSource,

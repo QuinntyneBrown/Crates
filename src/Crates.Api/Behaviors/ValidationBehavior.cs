@@ -1,10 +1,10 @@
+using Crates.Api.Core;
 using FluentValidation;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Crates.Api.Core;
 
 namespace Crates.Api.Behaviors
 {
@@ -37,7 +37,6 @@ namespace Crates.Api.Behaviors
 
                 return response;
             }
-
 
             return await next();
         }

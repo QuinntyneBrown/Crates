@@ -1,12 +1,11 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
 using Crates.Api.Core;
 using Crates.Api.Interfaces;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Crates.Api.Features
 {
@@ -16,7 +15,7 @@ namespace Crates.Api.Features
 
         public class Response : ResponseBase
         {
-            public List<DigitalAssetDto> DigitalAssets { get; set; }
+            public List<SimplifiedDigitalAssetDto> DigitalAssets { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -29,10 +28,9 @@ namespace Crates.Api.Features
             {
                 return new()
                 {
-                    DigitalAssets = await _context.DigitalAssets.Select(x => x.ToDto()).ToListAsync()
+                    DigitalAssets = await _context.DigitalAssets.Select(x => x.ToSimplifiedDto()).ToListAsync()
                 };
             }
-
         }
     }
 }

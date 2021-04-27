@@ -21,7 +21,7 @@ namespace Crates.Api.Features
 
         public class Response
         {
-            public List<System.Guid> DigitalAssetIds { get; set; }
+            public List<Guid> DigitalAssetIds { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -57,7 +57,7 @@ namespace Crates.Api.Features
                 while (section != null)
                 {
 
-                    var digitalAsset = new DigitalAsset();
+                    DigitalAsset digitalAsset = default;
 
                     var hasContentDispositionHeader = ContentDispositionHeaderValue.TryParse(section.ContentDisposition, out ContentDispositionHeaderValue contentDisposition);
 
@@ -69,18 +69,21 @@ namespace Crates.Api.Features
                             {
                                 await section.Body.CopyToAsync(targetStream);
                                 var name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
+                                var bytes = StreamHelper.ReadToEnd(targetStream);
+                                var contentType = section.ContentType;
 
                                 digitalAsset = _context.DigitalAssets.SingleOrDefault(x => x.Name == name);
 
                                 if (digitalAsset == null)
                                 {
-                                    digitalAsset = new DigitalAsset();
-                                    digitalAsset.Name = name;
+                                    digitalAsset = new DigitalAsset(name, bytes, contentType);
+                                    
                                     _context.DigitalAssets.Add(digitalAsset);
+                                } 
+                                else
+                                {
+                                    digitalAsset.Update(bytes, contentType);
                                 }
-
-                                digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
-                                digitalAsset.ContentType = section.ContentType;
                             }
                         }
                     }
@@ -92,7 +95,7 @@ namespace Crates.Api.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     DigitalAssetIds = digitalAssets.Select(x => x.DigitalAssetId).ToList()
                 };

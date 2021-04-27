@@ -35,7 +35,7 @@ namespace Crates.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var query = from playlist in _context.Playlists
+                var query = from playlist in _context.Playlists.Include(x => x.Tracks)
                             select playlist;
 
                 var length = await _context.Playlists.CountAsync();

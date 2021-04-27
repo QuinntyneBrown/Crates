@@ -17,6 +17,6 @@ export class LoginFormComponent implements AfterContentInit {
   constructor(private readonly _renderer: Renderer2) { }
 
   ngAfterContentInit(): void { 
-    this._renderer.selectRootElement('.username').focus(); 
+    this._renderer.selectRootElement('input:nth-of-type(1)').focus(); 
   }
 }

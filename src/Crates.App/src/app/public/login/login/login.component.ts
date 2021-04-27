@@ -3,13 +3,11 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AuthService } from '@core/auth.service';
 import { RedirectService } from '@core/redirect.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: [
-    '/node_modules/@angular/material/prebuilt-themes/indigo-pink.css',
     './login.component.scss'
   ]
 })

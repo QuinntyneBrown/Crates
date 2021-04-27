@@ -15,5 +15,8 @@ namespace Crates.Api.Features
             };
         }
 
+        public static SimplifiedDigitalAssetDto ToSimplifiedDto(this DigitalAsset digitalAsset)
+            => new (digitalAsset.DigitalAssetId, digitalAsset.Name, digitalAsset.ContentType);
+
     }
 }

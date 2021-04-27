@@ -30,7 +30,7 @@ namespace Crates.Api
                 {
                     Version = "v1",
                     Title = "Crates",
-                    Description = "Web Store",
+                    Description = "A music journal",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {

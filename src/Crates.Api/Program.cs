@@ -48,7 +48,6 @@ namespace Crates.Api
                     SeedData.Seed(context);
                 }
 
-
                 if (args.Contains("stop"))
                     Environment.Exit(0);
             }

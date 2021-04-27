@@ -1,8 +1,8 @@
-using System.Net;
-using System.Threading.Tasks;
 using Crates.Api.Features;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Crates.Api.Controllers
 {
@@ -66,6 +66,5 @@ namespace Crates.Api.Controllers
         [ProducesResponseType(typeof(RemoveArtist.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<RemoveArtist.Response>> Remove([FromRoute] RemoveArtist.Request request)
             => await _mediator.Send(request);
-
     }
 }
