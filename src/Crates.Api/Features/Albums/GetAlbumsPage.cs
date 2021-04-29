@@ -1,14 +1,12 @@
+using Crates.Api.Core;
+using Crates.Api.Extensions;
+using Crates.Api.Interfaces;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using Crates.Api.Extensions;
-using Crates.Api.Core;
-using Crates.Api.Interfaces;
-using Crates.Api.Extensions;
-using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Crates.Api.Features
 {

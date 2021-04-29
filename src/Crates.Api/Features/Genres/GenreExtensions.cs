@@ -1,4 +1,3 @@
-using System;
 using Crates.Api.Models;
 
 namespace Crates.Api.Features
@@ -12,6 +11,5 @@ namespace Crates.Api.Features
                 GenreId = genre.GenreId
             };
         }
-        
     }
 }

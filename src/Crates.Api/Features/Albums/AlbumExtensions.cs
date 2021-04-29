@@ -13,6 +13,5 @@ namespace Crates.Api.Features
                 Type = album.Type
             };
         }
-        
     }
 }

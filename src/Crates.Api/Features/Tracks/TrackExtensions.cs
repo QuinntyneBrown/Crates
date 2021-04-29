@@ -18,7 +18,6 @@ namespace Crates.Api.Features
                 Album = track.Album.ToDto(),
                 CoverArtDigitalAssetId = track.CoverArtDigitalAssetId
             };
-        }
-        
+        } 
     }
 }
