@@ -1,0 +1,15 @@
+<mat-card *ngIf="vm$ | async as vm">
+
+    <h1 *ngIf="(track$ | async)">Edit Track</h1>
+    <h1 *ngIf="!(track$ | async)">Create Track</h1>
+    <form [formGroup]="vm.form">
+        <app-track-editor formControlName="track">
+        </app-track-editor>
+    </form>
+
+    <div class="actions">
+        <button mat-raised-button (click)="save(vm)" color="primary" [disabled]="!vm.form.dirty && vm.form.valid">Save</button>
+
+        <button mat-raised-button (click)="cancel()">Cancel</button>
+    </div>
+</mat-card>

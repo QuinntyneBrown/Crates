@@ -1,0 +1,11 @@
+<form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
+    <mat-tab-group [class.mat-tab-header-hidden]="!form.value.trackId" [animationDuration]="0">
+        <mat-tab label="Track">
+            <mat-form-field appearance="outline" class="track-editor-name-field">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder='Name'
+                formControlName='name' required>
+            </mat-form-field>
+        </mat-tab>
+    </mat-tab-group>
+</form>

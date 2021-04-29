@@ -1,0 +1,16 @@
+:host {
+    position: relative;
+
+    .upload-button {
+        height: 100px;
+        width: 100px;
+        cursor: pointer;
+    }
+
+    img {
+        height: 100px;
+        width: 100px;
+        overflow: hidden;
+        border-radius: 50px;
+    }
+}
