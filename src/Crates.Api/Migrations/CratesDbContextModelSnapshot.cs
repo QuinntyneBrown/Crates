@@ -19,6 +19,26 @@ namespace Crates.Api.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Crates.Api.Models.Album", b =>
+                {
+                    b.Property<Guid>("AlbumId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlbumId");
+
+                    b.ToTable("Albums");
+                });
+
             modelBuilder.Entity("Crates.Api.Models.Artist", b =>
                 {
                     b.Property<Guid>("ArtistId")
@@ -134,6 +154,9 @@ namespace Crates.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AlbumId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("AppleMusic")
                         .HasColumnType("nvarchar(max)");
 
@@ -147,6 +170,8 @@ namespace Crates.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TrackId");
+
+                    b.HasIndex("AlbumId");
 
                     b.ToTable("Tracks");
                 });
@@ -217,6 +242,22 @@ namespace Crates.Api.Migrations
                     b.Navigation("Playlist");
 
                     b.Navigation("Track");
+                });
+
+            modelBuilder.Entity("Crates.Api.Models.Track", b =>
+                {
+                    b.HasOne("Crates.Api.Models.Album", "Album")
+                        .WithMany("Tracks")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+                });
+
+            modelBuilder.Entity("Crates.Api.Models.Album", b =>
+                {
+                    b.Navigation("Tracks");
                 });
 
             modelBuilder.Entity("Crates.Api.Models.Playlist", b =>

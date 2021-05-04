@@ -39,14 +39,7 @@ namespace Crates.Api.Controllers
         [ProducesResponseType(typeof(GetPlaylists.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetPlaylists.Response>> Get()
         {
-            try
-            {
-                return await _mediator.Send(new GetPlaylists.Request());
-            }
-            catch(Exception e)
-            {
-                throw e;
-            }
+            return await _mediator.Send(new GetPlaylists.Request());
         }
 
         [HttpPost(Name = "CreatePlaylistRoute")]

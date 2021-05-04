@@ -1,0 +1,20 @@
+:host {
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+
+        .mat-tab-group {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+                      
+            mat-form-field.mat-form-field {
+                width: 100%;
+            }
+        }
+
+    }
+}
