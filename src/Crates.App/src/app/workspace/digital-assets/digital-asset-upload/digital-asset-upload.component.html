@@ -1,6 +1,6 @@
 
-<ng-container *ngIf="digitalAssetId$ | async">
-    <img src="https://localhost:5001/api/digitalasset/serve/{{ digitalAssetId$ | async }}" />
+<ng-container *ngIf="digitalAssetId$ | async as digitalAssetId">
+    <img src="https://localhost:5001/api/digitalasset/serve/{{ digitalAssetId }}" />
 </ng-container>
 
 <ng-container *ngIf="!(digitalAssetId$ | async)">
@@ -9,7 +9,7 @@
             file_upload
         </mat-icon>
     </button>
-    
+
     <h4>Drag and drop image to upload</h4>
 </ng-container>
 

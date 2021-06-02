@@ -5,17 +5,23 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '@shared';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   declarations: [LoginComponent, LoginFormComponent],
-  exports: [LoginComponent, LoginFormComponent],
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forChild([
+      {
+        path:"",
+        component: LoginComponent
+      }
+    ])
   ]
 })
 export class LoginModule { }

@@ -1,13 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { baseUrl, HeadersInterceptor, JwtInterceptor } from '@core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { LoginModule } from './public/login/login.module';
+
 
 @NgModule({
   declarations: [
@@ -18,8 +17,7 @@ import { LoginModule } from './public/login/login.module';
     CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    LoginModule
+    HttpClientModule
   ],
   providers: [
     { provide: baseUrl, useValue: 'https://localhost:5001/' },
@@ -32,7 +30,7 @@ import { LoginModule } from './public/login/login.module';
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }    
+    }
   ],
   bootstrap: [AppComponent]
 })

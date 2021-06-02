@@ -1,5 +1,6 @@
 :host {
     position: relative;
+    box-sizing: border-box;
 
     .upload-button {
         height: 100px;
@@ -12,5 +13,9 @@
         width: 100px;
         overflow: hidden;
         border-radius: 50px;
+    }
+
+    h4 {
+      user-select: none;
     }
 }

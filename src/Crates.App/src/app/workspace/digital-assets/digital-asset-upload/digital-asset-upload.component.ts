@@ -19,6 +19,7 @@ import { DigitalAsset, DigitalAssetService} from '@api';
 export class DigitalAssetUploadComponent implements ControlValueAccessor {
 
   private readonly _destroyed$: Subject<void> = new Subject();
+
   public digitalAsset$: Subject<DigitalAsset> = new  Subject();
 
   constructor(

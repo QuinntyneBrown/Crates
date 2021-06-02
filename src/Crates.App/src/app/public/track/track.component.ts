@@ -17,11 +17,7 @@ export class TrackComponent {
   public vm$: Observable<{ track: Track }> = this._activatedRoute.paramMap.pipe(
     map(paramMap => paramMap.get("trackId")),
     switchMap(trackId => this._trackService.getById({ trackId })),
-    map(track => {
-      return {
-        track
-      }
-    })
+    map(track => ({ track }))
   )
 
   constructor(
