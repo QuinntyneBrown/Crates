@@ -7,16 +7,19 @@
             <path id="Path_83" data-name="Path 83" d="M978.645,1399.909c.934-8.441,7.906-13.731,15.583-12.882,3.176.351,4.507,1.557,5.753,1.694,1.045.116,1.568-.559,2-1.9l2.935.324,2.645,11.766-2.934-.324-1.846-2.076c-4.123-4.646-5.647-6.321-8.219-6.605-3.7-.409-6.519,2.29-7.234,8.761-.961,8.682,3.082,13.32,9.675,14.049a14.917,14.917,0,0,0,8.721-1.6l1.47,2.156a18.353,18.353,0,0,1-13.525,3.467C984.181,1415.7,977.64,1408.994,978.645,1399.909Z" transform="translate(-978.544 -1386.827)" fill="#231f20"/>
           </g>
         </g>
-    </svg>  
-    
+    </svg>
+
     <h1>crates, a journal</h1>
     <p>by sundays.group</p>
 
     <main>
-        <img 
-        *ngFor="let playlist of vm.playlists" class="g-box-art" 
+
+        <img
+        *ngFor="let playlist of vm.playlists"
+        class="g-box-art"
         src="{{ baseUrl }}api/digitalAsset/serve/{{ playlist.coverArtDigitalAssetId }}"
         [routerLink]='["playlist", playlist.playlistId]'/>
+
     </main>
 </ng-container>
 

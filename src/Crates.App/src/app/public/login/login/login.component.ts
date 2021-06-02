@@ -13,7 +13,7 @@ import { RedirectService } from '@core/redirect.service';
 })
 export class LoginComponent implements OnDestroy, OnInit {
 
-  private readonly _destroyed: Subject<void> = new Subject();
+  private readonly _destroyed$: Subject<void> = new Subject();
 
   constructor(
     private readonly _authService: AuthService,
@@ -23,7 +23,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this._authService.logout();
   }
-  
+
   public handleTryToLogin($event: { username: string, password: string }) {
     this._authService
     .tryToLogin({
@@ -31,7 +31,7 @@ export class LoginComponent implements OnDestroy, OnInit {
       password: $event.password
     })
     .pipe(
-      takeUntil(this._destroyed),
+      takeUntil(this._destroyed$),
     )
     .subscribe(
       () => {
@@ -40,11 +40,11 @@ export class LoginComponent implements OnDestroy, OnInit {
       errorResponse => {
         // handle error response
       }
-    );  
+    );
   }
 
   ngOnDestroy(): void {
-    this._destroyed.next();
-    this._destroyed.complete();
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 }
