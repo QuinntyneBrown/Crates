@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Playlist, PlaylistService } from '@api';
 import { baseUrl } from '@core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Playlist } from 'src/app/workspace/playlists/playlist';
-import { PlaylistService } from 'src/app/workspace/playlists/playlist.service';
 
 @Component({
   selector: 'app-landing',
@@ -23,12 +22,12 @@ export class LandingComponent {
       };
     })
   );
-  
+
   constructor(
     private readonly _playlistService: PlaylistService,
     @Inject(baseUrl) public baseUrl: string
-  ) { 
-    
+  ) {
+
   }
 
 }

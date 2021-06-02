@@ -1,8 +1,8 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DigitalAsset } from '../digital-asset';
 import { DigitalAssetService } from '../digital-asset.service';
 
@@ -25,31 +25,31 @@ export class DigitalAssetDetailComponent implements OnDestroy {
   public vm$ = combineLatest([
     this.digitalAsset$
   ]).pipe(
-    map(([digitalAsset]) => {
+    switchMap(([digitalAsset]) => {
       const form = new FormGroup({
         digitalAsset: new FormControl(digitalAsset, [])
       });
 
       if(!this.digitalAsset$?.value?.digitalAssetId) {
-        form.valueChanges
+        return form.valueChanges
         .pipe(
           tap(x => {
             this.saved.next(x.digitalAsset);
             this._overlayRef.dispose();
-          }),
-          takeUntil(this._destroyed)
+          })
         )
-        .subscribe();
       }
-      return {
+
+      return of({
         form
-      }
+      })
     })
   )
 
   constructor(
     private readonly _overlayRef: OverlayRef,
-    private readonly _digitalAssetService: DigitalAssetService) {     
+    private readonly _digitalAssetService: DigitalAssetService) { 
+
   }
 
   public save(vm: { form: FormGroup}) {

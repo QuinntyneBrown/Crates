@@ -8,14 +8,16 @@
 
     <h1 *ngIf="(digitalAsset$ | async)">Edit Digital Asset</h1>
     <h1 *ngIf="!(digitalAsset$ | async)">Upload Digital Asset</h1>
+
+
     <form [formGroup]="vm.form">
-        <app-digital-asset-upload *ngIf="!(digitalAsset$ | async)" formControlName="digitalAsset">
+        <!-- <app-digital-asset-upload *ngIf="!(digitalAsset$ | async)" formControlName="digitalAsset">
 
-        </app-digital-asset-upload>
+        </app-digital-asset-upload> -->
 
-        <app-digital-asset-editor *ngIf="(digitalAsset$ | async)" formControlName="digitalAsset">
+        <!-- <app-digital-asset-editor *ngIf="(digitalAsset$ | async)" formControlName="digitalAsset">
 
-        </app-digital-asset-editor>
+        </app-digital-asset-editor> -->
     </form>
 
     <div class="actions" *ngIf="(digitalAsset$ | async)">
