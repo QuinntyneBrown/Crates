@@ -12,7 +12,12 @@ import { MaterialModule } from '@shared';
 
 
 @NgModule({
-  declarations: [DigitalAssetListComponent, DigitalAssetEditorComponent, DigitalAssetDetailComponent, DigitalAssetUrlInputComponent],
+  declarations: [
+    DigitalAssetListComponent,
+     DigitalAssetEditorComponent,
+     DigitalAssetDetailComponent,
+     DigitalAssetUrlInputComponent
+    ],
   imports: [
     CommonModule,
     MaterialModule,

@@ -1,4 +1,4 @@
-<mat-card *ngIf="vm$ | async as vm">
+<ng-container *ngIf="vm$ | async as vm">
 
     <button mat-icon-button class="close-button" (click)="cancel()">
         <mat-icon>
@@ -10,19 +10,17 @@
     <h1 *ngIf="!(digitalAsset$ | async)">Upload Digital Asset</h1>
 
 
-    <form [formGroup]="vm.form">
-        <!-- <app-digital-asset-upload *ngIf="!(digitalAsset$ | async)" formControlName="digitalAsset">
+    <form [formGroup]="form">
+        <app-digital-asset-upload formControlName="digitalAsset">
 
-        </app-digital-asset-upload> -->
-
-        <!-- <app-digital-asset-editor *ngIf="(digitalAsset$ | async)" formControlName="digitalAsset">
-
-        </app-digital-asset-editor> -->
+        </app-digital-asset-upload>
     </form>
+
 
     <div class="actions" *ngIf="(digitalAsset$ | async)">
         <button mat-raised-button (click)="save(vm)" color="primary" [disabled]="!vm.form.dirty && vm.form.valid">Save</button>
 
         <button mat-raised-button (click)="cancel()">Cancel</button>
     </div>
-</mat-card>
+
+</ng-container>

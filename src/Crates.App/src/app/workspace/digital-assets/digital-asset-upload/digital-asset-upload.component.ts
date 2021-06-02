@@ -39,7 +39,6 @@ export class DigitalAssetUploadComponent implements ControlValueAccessor {
   }
 
   public registerOnChange(fn: any): void {
-
     this.digitalAssetId$
     .pipe(
       tap(x => fn(x)),

@@ -6,6 +6,7 @@ import { DigitalAssetDetailComponent } from '../digital-asset-detail/digital-ass
 import { MatPaginator } from '@angular/material/paginator';
 import { EntityDataSource } from '@shared/entity-data-source';
 import { DigitalAsset, DigitalAssetService } from '@api';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-digital-asset-list',
@@ -58,26 +59,20 @@ export class DigitalAssetListComponent implements OnDestroy {
 
   constructor(
     private readonly _digitalAssetService: DigitalAssetService,
-    private readonly _dialogService: DialogService,
+    private readonly _dialog: MatDialog,
   ) { }
 
   public edit(digitalAsset: DigitalAsset) {
-    const component = this._dialogService.open<DigitalAssetDetailComponent>(DigitalAssetDetailComponent);
-    component.digitalAsset$.next(digitalAsset);
-    component.saved
-    .pipe(
-      takeUntil(this._destroyed$),
-      tap(x => this._dataSource.update(x))
-    ).subscribe();
+    const component = this._dialog.open<DigitalAssetDetailComponent>(DigitalAssetDetailComponent, {
+      autoFocus: false
+    });
+
   }
 
   public create() {
-    this._dialogService.open<DigitalAssetDetailComponent>(DigitalAssetDetailComponent)
-    .saved
-    .pipe(
-      takeUntil(this._destroyed$),
-      tap(x => this.index$.next(this.index$.value))
-    ).subscribe();
+    this._dialog.open<DigitalAssetDetailComponent>(DigitalAssetDetailComponent, {
+      autoFocus: false
+    });
   }
 
   public delete(digitalAsset: DigitalAsset) {

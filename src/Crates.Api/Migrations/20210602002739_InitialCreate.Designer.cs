@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Crates.Api.Migrations
 {
     [DbContext(typeof(CratesDbContext))]
-    [Migration("20210504215156_InitialCreate")]
+    [Migration("20210602002739_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
