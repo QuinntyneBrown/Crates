@@ -3,8 +3,7 @@ import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
-import { Track } from '../track';
-import { TrackService } from '../track.service';
+import { Track, TrackService } from '@api';
 
 @Component({
   selector: 'app-track-detail',
@@ -36,7 +35,7 @@ export class TrackDetailComponent implements OnDestroy {
 
   constructor(
     private readonly _overlayRef: OverlayRef,
-    private readonly _trackService: TrackService) {     
+    private readonly _trackService: TrackService) {
   }
 
   public save(vm: { form: FormGroup}) {
@@ -44,13 +43,13 @@ export class TrackDetailComponent implements OnDestroy {
     let obs$: Observable<{ track: Track }>;
     if(track.trackId) {
       obs$ = this._trackService.update({ track })
-    }   
+    }
     else {
       obs$ = this._trackService.create({ track })
-    } 
+    }
 
     obs$.pipe(
-      takeUntil(this._destroyed),      
+      takeUntil(this._destroyed),
       tap(x => {
         this.saved.next(x.track);
         this._overlayRef.dispose();

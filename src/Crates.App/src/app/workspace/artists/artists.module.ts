@@ -4,8 +4,8 @@ import { ArtistListComponent } from './artist-list/artist-list.component';
 import { ArtistDetailComponent } from './artist-detail/artist-detail.component';
 import { ArtistEditorComponent } from './artist-editor/artist-editor.component';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '@shared';
 
 
 
@@ -13,11 +13,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [ArtistListComponent, ArtistDetailComponent, ArtistEditorComponent],
   imports: [
     CommonModule,
-    SharedModule,
+    MaterialModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild([
-      { 
+      {
         path: "", component: ArtistListComponent,
       }
     ])

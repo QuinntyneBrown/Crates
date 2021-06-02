@@ -2,9 +2,8 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from
 import { DialogService } from '@shared/dialog.service';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { Artist } from '../artist';
+import { Artist, ArtistService } from '@api';
 import { ArtistDetailComponent } from '../artist-detail/artist-detail.component';
-import { ArtistService } from '../artist.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { EntityDataSource } from '@shared/entity-data-source';
 
@@ -40,10 +39,10 @@ export class ArtistListComponent implements OnDestroy {
         'edit'
       ]),
       of(index),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
         this._dataSource.getPage({ index, pageSize });
         return {
           dataSource: this._dataSource,
@@ -55,7 +54,7 @@ export class ArtistListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _artistService: ArtistService,
     private readonly _dialogService: DialogService,
@@ -63,7 +62,7 @@ export class ArtistListComponent implements OnDestroy {
 
   public edit(artist: Artist) {
     const component = this._dialogService.open<ArtistDetailComponent>(ArtistDetailComponent);
-    component.artist$.next(artist);    
+    component.artist$.next(artist);
     component.saved
     .pipe(
       takeUntil(this._destroyed$),
@@ -80,13 +79,13 @@ export class ArtistListComponent implements OnDestroy {
     ).subscribe();
   }
 
-  public delete(artist: Artist) {    
+  public delete(artist: Artist) {
     this._artistService.remove({ artist }).pipe(
       takeUntil(this._destroyed$),
       tap(x => this.index$.next(this.index$.value))
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();

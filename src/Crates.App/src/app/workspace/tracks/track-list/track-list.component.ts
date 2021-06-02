@@ -2,11 +2,10 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from
 import { DialogService } from '@shared/dialog.service';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { Track } from '../track';
 import { TrackDetailComponent } from '../track-detail/track-detail.component';
-import { TrackService } from '../track.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { EntityDataSource } from '@shared/entity-data-source';
+import { Track, TrackService } from '@api';
 
 @Component({
   selector: 'app-track-list',
@@ -40,10 +39,10 @@ export class TrackListComponent implements OnDestroy {
         'edit'
       ]),
       of(index),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
         this._dataSource.getPage({ index, pageSize });
         return {
           dataSource: this._dataSource,
@@ -55,7 +54,7 @@ export class TrackListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _trackService: TrackService,
     private readonly _dialogService: DialogService,
@@ -63,7 +62,7 @@ export class TrackListComponent implements OnDestroy {
 
   public edit(track: Track) {
     const component = this._dialogService.open<TrackDetailComponent>(TrackDetailComponent);
-    component.track$.next(track);    
+    component.track$.next(track);
     component.saved
     .pipe(
       takeUntil(this._destroyed$),
@@ -80,13 +79,13 @@ export class TrackListComponent implements OnDestroy {
     ).subscribe();
   }
 
-  public delete(track: Track) {    
+  public delete(track: Track) {
     this._trackService.remove({ track }).pipe(
       takeUntil(this._destroyed$),
       tap(x => this.index$.next(this.index$.value))
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();

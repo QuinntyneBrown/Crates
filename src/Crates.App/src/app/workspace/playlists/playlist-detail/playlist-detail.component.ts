@@ -3,8 +3,7 @@ import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
-import { Playlist } from '../playlist';
-import { PlaylistService } from '../playlist.service';
+import { Playlist,PlaylistService } from '@api';
 
 @Component({
   selector: 'app-playlist-detail',
@@ -36,7 +35,7 @@ export class PlaylistDetailComponent implements OnDestroy {
 
   constructor(
     private readonly _overlayRef: OverlayRef,
-    private readonly _playlistService: PlaylistService) {     
+    private readonly _playlistService: PlaylistService) {
   }
 
   public save(vm: { form: FormGroup}) {
@@ -44,13 +43,13 @@ export class PlaylistDetailComponent implements OnDestroy {
     let obs$: Observable<{ playlist: Playlist }>;
     if(playlist.playlistId) {
       obs$ = this._playlistService.update({ playlist })
-    }   
+    }
     else {
       obs$ = this._playlistService.create({ playlist })
-    } 
+    }
 
     obs$.pipe(
-      takeUntil(this._destroyed),      
+      takeUntil(this._destroyed),
       tap(x => {
         this.saved.next(x.playlist);
         this._overlayRef.dispose();

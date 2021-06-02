@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DigitalAssetUploadComponent } from './digital-asset-upload.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '@shared/shared.module';
+import { MaterialModule } from '@shared';
 
 @NgModule({
   declarations: [DigitalAssetUploadComponent],
@@ -11,7 +11,7 @@ import { SharedModule } from '@shared/shared.module';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    MaterialModule
   ]
 })
 export class DigitalAssetUploadModule { }

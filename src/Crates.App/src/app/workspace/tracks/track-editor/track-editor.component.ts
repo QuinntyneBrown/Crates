@@ -2,7 +2,7 @@ import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncaps
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';;
-import { Track } from '../track';
+import { Track, TrackService } from '@api';
 
 @Component({
   selector: 'app-track-editor',
@@ -18,7 +18,7 @@ import { Track } from '../track';
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => TrackEditorComponent),
       multi: true
-    }       
+    }
   ]
 })
 export class TrackEditorComponent implements ControlValueAccessor,  Validator  {
@@ -51,8 +51,8 @@ export class TrackEditorComponent implements ControlValueAccessor,  Validator  {
           {}
         );
   }
-  
-  writeValue(track: Track): void {   
+
+  writeValue(track: Track): void {
     this.form.patchValue(track || {}, { emitEvent: false });
   }
 

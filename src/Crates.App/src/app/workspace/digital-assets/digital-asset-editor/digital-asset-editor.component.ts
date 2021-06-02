@@ -2,7 +2,7 @@ import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncaps
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { DigitalAsset } from '../digital-asset';
+import { DigitalAsset } from '@api';
 
 @Component({
   selector: 'app-digital-asset-editor',
@@ -18,7 +18,7 @@ import { DigitalAsset } from '../digital-asset';
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => DigitalAssetEditorComponent),
       multi: true
-    }       
+    }
   ]
 })
 export class DigitalAssetEditorComponent implements ControlValueAccessor,  Validator  {
@@ -36,8 +36,8 @@ export class DigitalAssetEditorComponent implements ControlValueAccessor,  Valid
   validate(control: AbstractControl): ValidationErrors | any {
 
   }
-  
-  writeValue(digitalAsset: DigitalAsset): void {   
+
+  writeValue(digitalAsset: DigitalAsset): void {
     this.form.patchValue(digitalAsset || {}, { emitEvent: false });
   }
 

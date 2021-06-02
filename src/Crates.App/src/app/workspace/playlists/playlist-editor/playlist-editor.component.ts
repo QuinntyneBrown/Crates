@@ -2,7 +2,7 @@ import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncaps
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';;
-import { Playlist } from '../playlist';
+import { Playlist } from '@api';
 
 @Component({
   selector: 'app-playlist-editor',
@@ -18,7 +18,7 @@ import { Playlist } from '../playlist';
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => PlaylistEditorComponent),
       multi: true
-    }       
+    }
   ]
 })
 export class PlaylistEditorComponent implements ControlValueAccessor,  Validator  {
@@ -52,8 +52,8 @@ export class PlaylistEditorComponent implements ControlValueAccessor,  Validator
           {}
         );
   }
-  
-  writeValue(playlist: Playlist): void {   
+
+  writeValue(playlist: Playlist): void {
     this.form.patchValue(playlist || {}, { emitEvent: false });
   }
 

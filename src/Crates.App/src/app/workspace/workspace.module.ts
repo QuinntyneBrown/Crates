@@ -16,23 +16,22 @@ import { WorkspaceHeaderModule } from '@shared/workspace-header/workspace-header
     RouterModule.forChild([{
       path: "", component: WorkspaceComponent,
       children: [
-        { 
-          path: "",  
+        {
+          path: "",
           loadChildren: () => import("src/app/workspace/playlists/playlists.module").then(x => x.PlaylistsModule)
-        }, 
-        { 
-          path: "tracks",  
-          loadChildren: () => import("src/app/workspace/tracks/tracks.module").then(x => x.TracksModule)
-        },     
-        { 
-          path: "artists",  
-          loadChildren: () => import("src/app/workspace/artists/artists.module").then(x => x.ArtistsModule)
-        },                     
-        { 
-          path: "digital-assets",  
-          loadChildren: () => import("src/app/workspace/digital-assets/digital-assets.module").then(x => x.DigitalAssetsModule)
         },
-       
+        {
+          path: "tracks",
+          loadChildren: () => import("src/app/workspace/tracks/tracks.module").then(x => x.TracksModule)
+        },
+        {
+          path: "artists",
+          loadChildren: () => import("src/app/workspace/artists/artists.module").then(x => x.ArtistsModule)
+        },
+        {
+          path: "digital-assets",
+          loadChildren: () => import("src/app/workspace/digital-assets/digital-assets.module").then(x => x.DigitalAssetsModule)
+        }
       ]
     }])
   ]

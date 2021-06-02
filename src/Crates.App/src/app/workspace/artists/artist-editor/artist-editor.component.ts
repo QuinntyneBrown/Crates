@@ -2,7 +2,7 @@ import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncaps
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';;
-import { Artist } from '../artist';
+import { Artist } from '@api';
 
 @Component({
   selector: 'app-artist-editor',
@@ -18,7 +18,7 @@ import { Artist } from '../artist';
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ArtistEditorComponent),
       multi: true
-    }       
+    }
   ]
 })
 export class ArtistEditorComponent implements ControlValueAccessor,  Validator  {
@@ -51,8 +51,8 @@ export class ArtistEditorComponent implements ControlValueAccessor,  Validator  
           {}
         );
   }
-  
-  writeValue(artist: Artist): void {   
+
+  writeValue(artist: Artist): void {
     this.form.patchValue(artist || {}, { emitEvent: false });
   }
 

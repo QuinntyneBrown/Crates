@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
-import { DigitalAssetService } from '../digital-asset.service';
+import { DigitalAssetService } from '@api';
 
 @Component({
   selector: 'app-digital-asset-url-input',

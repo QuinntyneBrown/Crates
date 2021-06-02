@@ -2,11 +2,10 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from
 import { DialogService } from '@shared/dialog.service';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { DigitalAsset } from '../digital-asset';
 import { DigitalAssetDetailComponent } from '../digital-asset-detail/digital-asset-detail.component';
-import { DigitalAssetService } from '../digital-asset.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { EntityDataSource } from '@shared/entity-data-source';
+import { DigitalAsset, DigitalAssetService } from '@api';
 
 @Component({
   selector: 'app-digital-asset-list',
@@ -40,11 +39,11 @@ export class DigitalAssetListComponent implements OnDestroy {
         'edit'
       ]),
       of(index),
-      of(pageSize)  
+      of(pageSize)
     ])
     .pipe(
-      map(([columnsToDisplay, pageNumber, pageSize]) => { 
-        
+      map(([columnsToDisplay, pageNumber, pageSize]) => {
+
         this._dataSource.getPage({ index, pageSize });
         return {
           dataSource: this._dataSource,
@@ -56,7 +55,7 @@ export class DigitalAssetListComponent implements OnDestroy {
       })
     ))
   );
-  
+
   constructor(
     private readonly _digitalAssetService: DigitalAssetService,
     private readonly _dialogService: DialogService,
@@ -64,7 +63,7 @@ export class DigitalAssetListComponent implements OnDestroy {
 
   public edit(digitalAsset: DigitalAsset) {
     const component = this._dialogService.open<DigitalAssetDetailComponent>(DigitalAssetDetailComponent);
-    component.digitalAsset$.next(digitalAsset);    
+    component.digitalAsset$.next(digitalAsset);
     component.saved
     .pipe(
       takeUntil(this._destroyed$),
@@ -81,13 +80,13 @@ export class DigitalAssetListComponent implements OnDestroy {
     ).subscribe();
   }
 
-  public delete(digitalAsset: DigitalAsset) {    
+  public delete(digitalAsset: DigitalAsset) {
     this._digitalAssetService.remove({ digitalAsset }).pipe(
       takeUntil(this._destroyed$),
       tap(x => this.index$.next(this.index$.value))
     ).subscribe();
   }
-  
+
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();

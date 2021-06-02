@@ -4,14 +4,15 @@ import { LoginComponent } from './login/login.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from '@shared/shared.module';
+import { MaterialModule } from '@shared';
+
 
 @NgModule({
   declarations: [LoginComponent, LoginFormComponent],
   exports: [LoginComponent, LoginFormComponent],
   imports: [
     CommonModule,
-    SharedModule,
+    MaterialModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule

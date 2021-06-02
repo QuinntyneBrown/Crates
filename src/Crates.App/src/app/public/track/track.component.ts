@@ -3,8 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { baseUrl } from '@core';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Track } from 'src/app/workspace/tracks/track';
-import { TrackService } from 'src/app/workspace/tracks/track.service';
+import { TrackService, Track } from '@api';
 
 @Component({
   selector: 'app-track',

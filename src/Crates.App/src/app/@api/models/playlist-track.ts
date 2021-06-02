@@ -1,5 +1,6 @@
 export type PlaylistTrack = {
-    playlistId: string,
-    trackId: string,
-    order: number,
+  playlistTrackId: string,
+  playlistId: string,
+  trackId: string,
+  order: number,
 };

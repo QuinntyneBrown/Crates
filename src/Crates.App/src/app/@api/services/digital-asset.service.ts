@@ -15,9 +15,14 @@ export class DigitalAssetService implements IPagableService<DigitalAsset> {
   uniqueIdentifierName: string = "digitalAssetId";
 
   constructor(
-    @Inject(baseUrl) private readonly _baseUrl: string,
-    private readonly _client: HttpClient
+    @Inject(baseUrl) private _baseUrl: string,
+    private _client: HttpClient
   ) { }
+
+  public upload(options: { data: FormData }): Observable<{ digitalAssetIds: number[] }> {
+    return this._client.post<{ digitalAssetIds: number[] }>(`${this._baseUrl}api/DigitalAsset/upload`,
+      options.data);
+  }
 
   getPage(options: { index: number; pageSize: number; }): Observable<EntityPage<DigitalAsset>> {
     return this._client.get<EntityPage<DigitalAsset>>(`${this._baseUrl}api/digitalAsset/page/${options.pageSize}/${options.index}`)
@@ -25,6 +30,15 @@ export class DigitalAssetService implements IPagableService<DigitalAsset> {
 
   public get(): Observable<DigitalAsset[]> {
     return this._client.get<{ digitalAssets: DigitalAsset[] }>(`${this._baseUrl}api/digitalAsset`)
+      .pipe(
+        map(x => x.digitalAssets)
+      );
+  }
+
+  public getByIds(options: { digitalAssetIds: number[] }): Observable<DigitalAsset[]> {
+    return this._client.get<{ digitalAssets: DigitalAsset[] }>(`${this._baseUrl}api/digitalAsset/range?${options.digitalAssetIds
+      .map(x => `digitalAssetIds=${x}`)
+      .join('&')}`)
       .pipe(
         map(x => x.digitalAssets)
       );
@@ -44,7 +58,7 @@ export class DigitalAssetService implements IPagableService<DigitalAsset> {
   public create(options: { digitalAsset: DigitalAsset }): Observable<{ digitalAsset: DigitalAsset }> {
     return this._client.post<{ digitalAsset: DigitalAsset }>(`${this._baseUrl}api/digitalAsset`, { digitalAsset: options.digitalAsset });
   }
-  
+
   public update(options: { digitalAsset: DigitalAsset }): Observable<{ digitalAsset: DigitalAsset }> {
     return this._client.put<{ digitalAsset: DigitalAsset }>(`${this._baseUrl}api/digitalAsset`, { digitalAsset: options.digitalAsset });
   }

@@ -2,8 +2,7 @@ import { Component, ElementRef, forwardRef, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { DigitalAsset } from '../digital-asset';
-import { DigitalAssetService } from '../digital-asset.service';
+import { DigitalAsset, DigitalAssetService} from '@api';
 
 @Component({
   selector: 'app-digital-asset-upload',
@@ -32,15 +31,15 @@ export class DigitalAssetUploadComponent implements ControlValueAccessor {
 
   digitalAssetId$: BehaviorSubject<string> = new BehaviorSubject(null);
 
-  writeValue(obj: any): void { 
+  writeValue(obj: any): void {
     if(obj) {
-      this.digitalAssetId$.next(obj)      
+      this.digitalAssetId$.next(obj)
     }
 
   }
 
-  public registerOnChange(fn: any): void { 
-    
+  public registerOnChange(fn: any): void {
+
     this.digitalAssetId$
     .pipe(
       tap(x => fn(x)),
@@ -53,7 +52,7 @@ export class DigitalAssetUploadComponent implements ControlValueAccessor {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    
+
   }
 
 
@@ -63,7 +62,7 @@ export class DigitalAssetUploadComponent implements ControlValueAccessor {
       tap((x: DragEvent) => this.onDragOver(x)),
       takeUntil(this._destroyed$)
     ).subscribe();
-    
+
     fromEvent(this._elementRef.nativeElement,"drop")
     .pipe(
       tap((x: DragEvent) => this.onDrop(x)),

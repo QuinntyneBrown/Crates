@@ -3,8 +3,7 @@ import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
-import { Artist } from '../artist';
-import { ArtistService } from '../artist.service';
+import { Artist, ArtistService } from '@api';
 
 @Component({
   selector: 'app-artist-detail',
@@ -36,7 +35,7 @@ export class ArtistDetailComponent implements OnDestroy {
 
   constructor(
     private readonly _overlayRef: OverlayRef,
-    private readonly _artistService: ArtistService) {     
+    private readonly _artistService: ArtistService) {
   }
 
   public save(vm: { form: FormGroup}) {
@@ -44,13 +43,13 @@ export class ArtistDetailComponent implements OnDestroy {
     let obs$: Observable<{ artist: Artist }>;
     if(artist.artistId) {
       obs$ = this._artistService.update({ artist })
-    }   
+    }
     else {
       obs$ = this._artistService.create({ artist })
-    } 
+    }
 
     obs$.pipe(
-      takeUntil(this._destroyed),      
+      takeUntil(this._destroyed),
       tap(x => {
         this.saved.next(x.artist);
         this._overlayRef.dispose();

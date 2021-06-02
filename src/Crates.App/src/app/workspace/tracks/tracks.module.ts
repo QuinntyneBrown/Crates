@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 import { TrackListComponent } from './track-list/track-list.component';
 import { TrackDetailComponent } from './track-detail/track-detail.component';
 import { TrackEditorComponent } from './track-editor/track-editor.component';
-import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from '@shared';
 
 
 @NgModule({
   declarations: [TrackListComponent, TrackDetailComponent, TrackEditorComponent],
   imports: [
     CommonModule,
-    SharedModule,
+    MaterialModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild([
-      { 
+      {
         path: "", component: TrackListComponent,
       }
     ])
