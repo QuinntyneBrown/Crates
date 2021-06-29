@@ -11,9 +11,7 @@ export class WorkspaceComponent  {
   constructor(
     private readonly _authService: AuthService,
     private readonly _router: Router
-  ) {
-
-  }
+  ) { }
 
   public logout() {
     this._authService.logout();

@@ -33,6 +33,23 @@ namespace Crates.Api.Controllers
             return response;
         }
 
+        [HttpGet("name/{name}", Name = "GetPlaylistByNameRoute")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetPlaylistByName.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetPlaylistByName.Response>> GetByName([FromRoute] GetPlaylistByName.Request request)
+        {
+            var response = await _mediator.Send(request);
+
+            if (response.Playlist == null)
+            {
+                return new NotFoundObjectResult(request.Name);
+            }
+
+            return response;
+        }
+
         [HttpGet(Name = "GetPlaylistsRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

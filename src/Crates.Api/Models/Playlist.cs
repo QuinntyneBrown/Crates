@@ -6,16 +6,13 @@ namespace Crates.Api.Models
     public class Playlist
     {
         public Guid PlaylistId { get; private set; }
+        public string Name { get; private set; }
         public DateTime Created { get; private set; } = DateTime.UtcNow;
         public DateTime Released { get; private set; }
         public List<PlaylistTrack> PlaylistTracks { get; private set; } = new();
         public List<Track> Tracks { get; private set; } = new();
         public string Spotify { get; private set; }
         public Guid CoverArtDigitalAssetId { get; private set; }
-        public void Release(DateTime released)
-        {
-            Released = released;
-        }
 
         public Playlist(DateTime created)
         {
@@ -31,6 +28,16 @@ namespace Crates.Api.Models
         private Playlist()
         {
    
+        }
+
+        public void Release(DateTime released)
+        {
+            Released = released;
+        }
+
+        public void SetName(string  name)
+        {
+            Name = name;
         }
 
         public void AddTrack(Track track)

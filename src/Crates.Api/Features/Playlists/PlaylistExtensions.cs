@@ -10,6 +10,7 @@ namespace Crates.Api.Features
             return new()
             {
                 PlaylistId = playlist.PlaylistId,
+                Name = playlist.Name,
                 Created = playlist.Created,
                 Released = playlist.Released,
                 Tracks = playlist.Tracks.Select(x => x.ToDto()).ToList(),
