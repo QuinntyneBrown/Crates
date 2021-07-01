@@ -15,6 +15,7 @@ namespace Crates.Api.Interfaces
         DbSet<Genre> Genres { get; }
         DbSet<Track> Tracks { get; }
         DbSet<Album> Albums { get; }
+        DbSet<CssVariable> CssVariables { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }

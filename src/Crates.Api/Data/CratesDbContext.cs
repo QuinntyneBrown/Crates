@@ -14,6 +14,7 @@ namespace Crates.Api.Data
         public DbSet<Genre> Genres { get; private set; }
         public DbSet<Track> Tracks { get; private set; }
         public DbSet<Album> Albums { get; private set; }
+        public DbSet<CssVariable> CssVariables { get; private set; }
         public CratesDbContext(DbContextOptions options)
             :base(options) { }
 
